@@ -1,6 +1,6 @@
 
 
-static t_stk * next_min(t_stk **stk)
+static t_stk *next_min(t_stk **stk)
 {
     t_stk *head;
     t_stk *min;

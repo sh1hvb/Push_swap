@@ -16,7 +16,7 @@ void	ft_free(char **str)
 		free(str[i--]);
 }
 
-int	is_sorted(t_stk **stack)
+int	sorted(t_stk **stack)
 {
 	t_stk	*head;
 
