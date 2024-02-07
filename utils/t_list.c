@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   t_list.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/07 15:36:09 by mchihab           #+#    #+#             */
+/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -5,7 +16,7 @@ t_stk	*ft_lstnew(int value)
 {
 	t_stk	*new;
 
-	new = (t_stk *) malloc(sizeof(*new));
+	new = (t_stk *)malloc(sizeof(*new));
 	if (!new)
 		return (NULL);
 	new->value = value;
@@ -53,7 +64,7 @@ void	ft_lstadd_back(t_stk **stack, t_stk *new)
 
 int	ft_lstsize(t_stk *head)
 {
-	int	i;
+	int		i;
 	t_stk	*tmp;
 
 	tmp = head;
@@ -78,4 +89,3 @@ void	printList(t_stk *head)
 		tmp = tmp->next;
 	}
 }
-

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/07 15:35:44 by mchihab           #+#    #+#             */
+/*   Updated: 2024/02/07 16:03:35 by mchihab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	initStack(t_stk **stack, int argc, char **argv)
+static void	init_stack(t_stk **stack, int argc, char **argv)
 {
 	t_stk	*new;
 	char	**args;
@@ -30,7 +41,7 @@ static void	sort_stack(t_stk **stack_a, t_stk **stack_b)
 {
 	if (ft_lstsize(*stack_a) <= 5)
 		simple_sort(stack_a, stack_b);
-	else 
+	else
 		radix_sort(stack_a, stack_b);
 }
 
@@ -46,7 +57,7 @@ int	main(int argc, char **argv)
 	stack_b = (t_stk **)malloc(sizeof(t_stk));
 	*stack_a = NULL;
 	*stack_b = NULL;
-	initStack(stack_a, argc, argv);
+	init_stack(stack_a, argc, argv);
 	if (is_sorted(stack_a))
 	{
 		free_stack(stack_a);
@@ -58,4 +69,3 @@ int	main(int argc, char **argv)
 	free_stack(stack_b);
 	return (0);
 }
-

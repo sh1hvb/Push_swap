@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverserotate.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/07 15:35:52 by mchihab           #+#    #+#             */
+/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	reverseRotate(t_stk **stack)
@@ -13,8 +25,8 @@ int	reverseRotate(t_stk **stack)
 	{
 		if (head->next->next == NULL)
 		{
-			 head->next = NULL;
-			 break ;
+			head->next = NULL;
+			break ;
 		}
 		head = head->next;
 	}
@@ -48,4 +60,3 @@ int	rrr(t_stk **stack_a, t_stk **stack_b)
 	ft_putendl_fd("rrr", 1);
 	return (0);
 }
-

@@ -1,38 +1,68 @@
-#include "push_swap.h"
-int do_commands(char *line, t_stk **stack_a, t_stk **stack_b) {
-    int result = 0;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/07 15:36:17 by mchihab           #+#    #+#             */
+/*   Updated: 2024/02/07 17:38:07 by mchihab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-    while (1) {
-        if (!ft_strcmp(line, "sa")) { swap(stack_a); break; }
-        if (!ft_strcmp(line, "sb")) { swap(stack_b); break; }
-        if (!ft_strcmp(line, "ss")) { swap(stack_a); swap(stack_b); break; }
-        if (!ft_strcmp(line, "pa")) { push(stack_b, stack_a); break; }
-        if (!ft_strcmp(line, "pb")) { push(stack_a, stack_b); break; }
-        if (!ft_strcmp(line, "ra")) { rotate(stack_a); break; }
-        if (!ft_strcmp(line, "rb")) { rotate(stack_b); break; }
-        if (!ft_strcmp(line, "rr")) { rotate(stack_a); rotate(stack_b); break; }
-        if (!ft_strcmp(line, "rra")) { reverseRotate(stack_a); break; }
-        if (!ft_strcmp(line, "rrb")) { reverseRotate(stack_b); break; }
-        if (!ft_strcmp(line, "rrr")) { reverseRotate(stack_a); reverseRotate(stack_b); break; }
-        result = 1; 
-        break;
-    }
-    return result;
+#include "push_swap.h"
+
+int	process_rrr(t_stk **stack_a, t_stk **stack_b)
+{
+	reverseRotate(stack_a);
+	reverseRotate(stack_b);
+	return (0);
+}
+
+int	do_commands(char *line, t_stk **stack_a, t_stk **stack_b)
+{
+	if (!ft_strcmp(line, "sa"))
+		return (process_sa(stack_a));
+	if (!ft_strcmp(line, "sb"))
+		return (process_sb(stack_b));
+	if (!ft_strcmp(line, "ss"))
+		return (process_ss(stack_a, stack_b));
+	if (!ft_strcmp(line, "pa"))
+		return (process_pa(stack_a, stack_b));
+	if (!ft_strcmp(line, "pb"))
+		return (process_pb(stack_b, stack_a));
+	if (!ft_strcmp(line, "ra"))
+		return (process_ra(stack_a));
+	if (!ft_strcmp(line, "rb"))
+		return (process_rb(stack_b));
+	if (!ft_strcmp(line, "rr"))
+		return (process_rr(stack_a, stack_b));
+	if (!ft_strcmp(line, "rra"))
+		return (process_rra(stack_a));
+	if (!ft_strcmp(line, "rrb"))
+		return (process_rrb(stack_b));
+	if (!ft_strcmp(line, "rrr"))
+		return (process_rrr(stack_a, stack_b));
+	return (1);
+}
+int	is_empty_stack(t_stk *stack)
+{
+	return (stack == NULL);
 }
 
 void	print_checker_res(t_stk **stack_a, t_stk **stack_b)
 {
-	if (is_sorted(stack_a))
-		ft_putendl_fd("OK\n", 1);
+	if (is_sorted(stack_a) && is_empty_stack(*stack_b))
+		ft_putendl_fd("OK", 1);
 	else
-		ft_putendl_fd("KO\n", 1);
+		ft_putendl_fd("KO", 1);
 	if (*stack_a)
 		free_stack(stack_a);
 	if (*stack_b)
 		free_stack(stack_b);
 }
 
-static void	initStack(t_stk **stack, int argc, char **argv)
+static void	init_stack(t_stk **stack, int argc, char **argv)
 {
 	t_stk	*new;
 	char	**args;
@@ -70,7 +100,7 @@ int	main(int argc, char **argv)
 	*stack_a = NULL;
 	*stack_b = NULL;
 	ft_check_args(argc, argv);
-	initStack(stack_a, argc, argv);
+	init_stack(stack_a, argc, argv);
 	while (get_next_line(0, &line))
 	{
 		if (do_commands(line, stack_a, stack_b))

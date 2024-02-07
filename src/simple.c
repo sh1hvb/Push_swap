@@ -1,38 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simple.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/07 15:35:58 by mchihab           #+#    #+#             */
+/*   Updated: 2024/02/07 21:49:26 by mchihab          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
-static int	get_min(t_stk **stack, int val)
+
+int	get_min(t_stk **stack, int val)
 {
 	t_stk	*head;
 	int		min;
 
 	head = *stack;
 	min = head->index;
-	while ((head = head->next))
+	while (head)
+	{
+		head = head->next;
 		if ((head->index < min) && head->index != val)
 			min = head->index;
+	}
 	return (min);
 }
 
-static void	sort_3(t_stk **stack_a)
-{
-	t_stk	*head;
-	int		min;
-	int		next_min;
 
-	head = *stack_a;
-	min = get_min(stack_a, -1);
-	next_min = get_min(stack_a, min);
-	if (is_sorted(stack_a))
-		return ;
-	if (head->index == min && head->next->index != next_min)
-		ra(stack_a), sa(stack_a), rra(stack_a);
-	else if (head->index == next_min)
-		(head->next->index == min) ? sa(stack_a) : rra(stack_a);
-	else
-		(head->next->index == min) ? ra(stack_a) : (sa(stack_a), rra(stack_a));
-}
-
-static void	sort_4(t_stk **stack_a, t_stk **stack_b)
+void	sort_4(t_stk **stack_a, t_stk **stack_b)
 {
 	int	distance;
 
@@ -52,7 +49,7 @@ static void	sort_4(t_stk **stack_a, t_stk **stack_b)
 	pa(stack_a, stack_b);
 }
 
-void	sort_5(t_stk **stack_a, t_stk **stack_b)
+static void	sort_5(t_stk **stack_a, t_stk **stack_b)
 {
 	int	distance;
 
@@ -77,7 +74,7 @@ void	simple_sort(t_stk **stack_a, t_stk **stack_b)
 	int	size;
 
 	if (is_sorted(stack_a) || (size = ft_lstsize(*stack_a)) <= 1)
-		return;
+		return ;
 	if (size == 2)
 		sa(stack_a);
 	else if (size == 3)
