@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:36:09 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:41:28 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ int	ft_lstsize(t_stk *head)
 	return (i);
 }
 
-void	printList(t_stk *head)
-{
-	t_stk	*tmp;
+// void	printList(t_stk *head)
+// {
+// 	t_stk	*tmp;
 
-	tmp = head;
-	while (tmp != NULL)
-	{
-		ft_putnbr_fd(tmp->value, 1);
-		ft_putendl_fd("", 1);
-		tmp = tmp->next;
-	}
-}
+// 	tmp = head;
+// 	while (tmp != NULL)
+// 	{
+// 		ft_putnbr_fd(tmp->value, 1);
+// 		ft_putendl_fd("", 1);
+// 		tmp = tmp->next;
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:57:59 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 16:15:27 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:34:47 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	process_rr(t_stk **stack_a, t_stk **stack_b)
 
 int	process_rra(t_stk **stack_a)
 {
-	reverseRotate(stack_a);
+	reverse_rotate(stack_a);
 	return (0);
 }
 
 int	process_rrb(t_stk **stack_b)
 {
-	reverseRotate(stack_b);
+	reverse_rotate(stack_b);
 	return (0);
 }

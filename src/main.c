@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:35:44 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 16:03:35 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:56:52 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,4 @@ int	main(int argc, char **argv)
 	free_stack(stack_b);
 	return (0);
 }
+// system("valgrind --leak-check=full --track-origins=yes ./push_swap");
