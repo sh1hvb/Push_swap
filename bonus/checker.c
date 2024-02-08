@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:36:17 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 17:38:07 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/08 15:34:47 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	process_rrr(t_stk **stack_a, t_stk **stack_b)
 {
-	reverseRotate(stack_a);
-	reverseRotate(stack_b);
+	reverse_rotate(stack_a);
+	reverse_rotate(stack_b);
 	return (0);
 }
 
@@ -45,14 +45,10 @@ int	do_commands(char *line, t_stk **stack_a, t_stk **stack_b)
 		return (process_rrr(stack_a, stack_b));
 	return (1);
 }
-int	is_empty_stack(t_stk *stack)
-{
-	return (stack == NULL);
-}
 
 void	print_checker_res(t_stk **stack_a, t_stk **stack_b)
 {
-	if (is_sorted(stack_a) && is_empty_stack(*stack_b))
+	if (is_sorted(stack_a) && ((*stack_b) == NULL) == 1)
 		ft_putendl_fd("OK", 1);
 	else
 		ft_putendl_fd("KO", 1);
