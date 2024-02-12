@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:36:03 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:42:28 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	ft_check_args(int argc, char **argv)
 		if (ft_contains(tmp, args, i))
 			ft_error("Error");
 		if (tmp < -2147483648 || tmp > 2147483647)
+			ft_error("Error");
+		if(args[i][0] == '\0')
 			ft_error("Error");
 		i++;
 	}

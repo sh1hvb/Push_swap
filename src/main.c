@@ -6,12 +6,20 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:35:44 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/08 18:56:52 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/12 14:24:23 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+int howin(char **args)
+{
+	int i = 0;
+	while (args[i])
+	{
+		i++;
+	}
+	return (i);
+}
 static void	init_stack(t_stk **stack, int argc, char **argv)
 {
 	t_stk	*new;
@@ -25,6 +33,13 @@ static void	init_stack(t_stk **stack, int argc, char **argv)
 	{
 		i = 1;
 		args = argv;
+	}
+	if(howin(args) == 1)
+	{
+		ft_free(args);
+		system("leaks push_swap");
+		exit(0);
+		
 	}
 	while (args[i])
 	{
@@ -65,8 +80,12 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	sort_stack(stack_a, stack_b);
+	printList(*stack_a);
+	printf("%d\n", ft_lstsize(*stack_a));
 	free_stack(stack_a);
 	free_stack(stack_b);
+	
+	
 	return (0);
 }
 // system("valgrind --leak-check=full --track-origins=yes ./push_swap");
