@@ -14,9 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "../libft/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
+
 // Stack
 typedef struct s_stk
 {
