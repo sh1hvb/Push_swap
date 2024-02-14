@@ -12,29 +12,37 @@
 
 #include "push_swap.h"
 
-static void	init_stack(t_stk **stack, int argc, char **argv)
+// #include <crtdbg.h>
+
+// static int howin(char **av)
+// {
+// 	int i = 0;
+// 	while(av[i++] != NULL)
+// 		i++;
+// 	return (i);
+// }
+void	init_stack(t_stk **stack, int argc, char **argv)
 {
 	t_stk	*new;
 	char	**args;
 	int		i;
+	int		j;
 
-	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
+	i = 1;
+	while (i < argc)
 	{
-		i = 1;
-		args = argv;
-	}
-	while (args[i])
-	{
-		new = ft_lstnew(ft_atoi(args[i]));
-		ft_lstadd_back(stack, new);
+		args = ft_split(argv[i], ' ');
+		j = 0;
+		while (args[j])
+		{
+			new = ft_lstnew(ft_atoi(args[j]));
+			ft_lstadd_back(stack, new);
+			j++;
+		}
+		ft_free(args);
 		i++;
 	}
 	index_stack(stack);
-	if (argc == 2)
-		ft_free(args);
 }
 
 static void	sort_stack(t_stk **stack_a, t_stk **stack_b)
@@ -50,8 +58,12 @@ int	main(int argc, char **argv)
 	t_stk	**stack_a;
 	t_stk	**stack_b;
 
+	// _CrtSetDbgFlag(_CRTDB_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	if (argc < 2)
 		return (-1);
+	// printf("%d",howin(argv));
+	// if(howin(argv) == 1)
+	// 	return(0);
 	ft_check_args(argc, argv);
 	stack_a = (t_stk **)malloc(sizeof(t_stk));
 	stack_b = (t_stk **)malloc(sizeof(t_stk));

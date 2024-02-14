@@ -14,7 +14,7 @@
 
 void	ft_error(char *msg)
 {
-	ft_putendl_fd(msg, 1);
+	ft_putendl_fd(msg, 2);
 	exit(0);
 }
 
@@ -27,6 +27,7 @@ void	ft_free(char **str)
 		i++;
 	while (i >= 0)
 		free(str[i--]);
+	*str = NULL;
 }
 
 int	is_sorted(t_stk **stack)
@@ -62,15 +63,15 @@ int	get_distance(t_stk **stack, int index)
 
 void	free_stack(t_stk **stack)
 {
-	t_stk	*head;
-	t_stk	*tmp;
+	t_stk *current = *stack;
+	t_stk *next;
 
-	head = *stack;
-	while (head)
+	while (current != NULL)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		next = current->next;
+		free(current);
+		current = next;
 	}
-	free(stack);
+
+	*stack = NULL;
 }

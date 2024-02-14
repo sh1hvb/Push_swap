@@ -13,80 +13,82 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int	word_count(char const *s, char c)
+static void	clear(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+
+static int	count_word(const char *str, char c)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-			count++;
-		i++;
+		if (str[i] == c && str[i])
+		{
+			i++;
+			continue ;
+		}
+		count++;
+		while (str[i] != c && str[i])
+		{
+			i++;
+		}
 	}
 	return (count);
 }
 
-int	word_length(char const *s, char c)
+static void	fill_arr(char **arr, const char *str, char c)
 {
-	int	i;
-	int	len;
+	size_t	i;
+	int		index;
+	size_t	isep;
 
 	i = 0;
-	len = 0;
-	while (s[i] != c && s[i] != '\0')
+	index = 0;
+	while (str[i])
 	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-char	**f(char const *s, char c, char **result, int words_count)
-{
-	int	i;
-	int	j;
-	int	w_len;
-
-	while (*s == c)
-		s++;
-	i = -1;
-	while (++i < words_count)
-	{
-		while (*s == c)
-			s++;
-		j = 0;
-		w_len = word_length(s, c);
-		result[i] = (char *)malloc(sizeof(char) * (w_len + 1));
-		if (!(result[i]))
-			return (NULL);
-		while (j < w_len)
+		if (str[i] == c)
 		{
-			result[i][j] = *s;
-			s++;
-			j++;
+			i++;
+			continue ;
 		}
-		result[i][j] = '\0';
+		isep = i;
+		while (str[i] != c && str[i])
+			i++;
+		arr[index] = (char *)malloc(i - isep + 1);
+		if (!arr[index])
+		{
+			clear(arr);
+			return ;
+		}
+		ft_strlcpy(arr[index], str + isep, i - isep + 1);
+		index++;
 	}
-	return (result);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**result;
-	int		wcount;
+	char	**arr;
+	int		wrdcnt;
 
 	if (!s)
-		return (NULL);
-	wcount = word_count(s, c);
-	result = (char **)malloc(sizeof(char *) * (wcount + 1));
-	if (!(result))
-		return (NULL);
-	result = f(s, c, result, wcount);
-	result[wcount] = NULL;
-	return (result);
+		return (0);
+	wrdcnt = count_word(s, c);
+	arr = malloc((wrdcnt + 1) * sizeof(char *));
+	if (!arr)
+		return (0);
+	fill_arr(arr, s, c);
+	arr[wrdcnt] = 0;
+	return (arr);
 }
 // int main() {
 //     char *a="chihab , habibi , come , to , 1337";
