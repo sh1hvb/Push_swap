@@ -6,15 +6,18 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:36:03 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:42:28 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+#include <stdlib.h>
+#include <limits.h>
+
 int	ft_contains(long num, long *tab)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (tab[i] != 0)
@@ -28,7 +31,7 @@ int	ft_contains(long num, long *tab)
 
 static int	ft_isnum(char *num)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (num[0] == '-')
@@ -41,15 +44,14 @@ static int	ft_isnum(char *num)
 	}
 	return (1);
 }
+
 int	howinav(char **argv)
 {
-	int		count;
-	int		i;
-	char	**args;
-	int		j;
+	int count = 0;
+	int i = 0;
+	char **args;
+	int j;
 
-	count = 0;
-	i = 0;
 	while (argv[i])
 	{
 		args = ft_split(argv[i], ' ');
@@ -72,8 +74,7 @@ char	*process_input_and_check_errors(char *input, long *tab)
 	int		k;
 
 	tmp = ft_atoi(input);
-	if (!ft_isnum(input) || tmp < -2147483648 || tmp > 2147483647
-		|| input[0] == '\0')
+	if (!ft_isnum(input) || tmp < -2147483648 || tmp > 2147483647 || input[0] == '\0')
 	{
 		return ("Error: Invalid input");
 	}
@@ -103,16 +104,19 @@ void	ft_check_args(int argc, char **argv)
 		j = 0;
 		while (args[j])
 		{
-			if (process_input_and_check_errors(args[j++], tab) != NULL)
-				ft_error("Error");
+			char *error = process_input_and_check_errors(args[j++], tab);
+			if (error != NULL)
+				ft_error(error);
 		}
 		i++;
 		ft_free(args);
 	}
 	i = 0;
 	while (i < argc)
+	{
 		if (argv[i++][0] == '\0')
 			ft_error("Error: Empty argument");
+	}
 }
 
 // void ft_check_args(int argc, char **argv)

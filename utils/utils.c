@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:36:11 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/07 15:36:55 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/11 21:13:10 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void	ft_free(char **str)
 
 	i = 0;
 	while (str[i])
+	{
+		free(str[i]);
 		i++;
-	while (i >= 0)
-		free(str[i--]);
-	*str = NULL;
+	}
+	free(str);
+	str = NULL;
 }
+
 
 int	is_sorted(t_stk **stack)
 {
@@ -72,6 +75,6 @@ void	free_stack(t_stk **stack)
 		free(current);
 		current = next;
 	}
-
 	*stack = NULL;
 }
+

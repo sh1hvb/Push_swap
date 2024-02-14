@@ -1,104 +1,92 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 12:32:04 by mchihab           #+#    #+#             */
-/*   Updated: 2023/11/16 17:46:37 by mchihab          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include <stdlib.h>
 
-static void	clear(char **arr)
+static int	word_count(const char *s, char c)
 {
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
+    int count = 0;
+    int i = 0;
+    while (s[i])
+    {
+        if (s[i] == c && s[i])
+        {
+            i++;
+            continue;
+        }
+        count++;
+        while (s[i] != c && s[i])
+        {
+            i++;
+        }
+    }
+    return (count);
 }
 
-static int	count_word(const char *str, char c)
+static int	word_length(const char *s, char c)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == c && str[i])
-		{
-			i++;
-			continue ;
-		}
-		count++;
-		while (str[i] != c && str[i])
-		{
-			i++;
-		}
-	}
-	return (count);
+    int len = 0;
+    while (*s != c && *s != '\0')
+    {
+        s++;
+        len++;
+    }
+    return (len);
 }
 
-static void	fill_arr(char **arr, const char *str, char c)
+static char	**fill_arr(char **arr, const char *s, char c, int words_count)
 {
-	size_t	i;
-	int		index;
-	size_t	isep;
-
-	i = 0;
-	index = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-		{
-			i++;
-			continue ;
-		}
-		isep = i;
-		while (str[i] != c && str[i])
-			i++;
-		arr[index] = (char *)malloc(i - isep + 1);
-		if (!arr[index])
-		{
-			clear(arr);
-			return ;
-		}
-		ft_strlcpy(arr[index], str + isep, i - isep + 1);
-		index++;
-	}
+    int i = -1;
+    while (++i < words_count)
+    {
+        while (*s == c)
+            s++;
+        int j = 0;
+        int word_len = word_length(s, c);
+        arr[i] = (char *)malloc(sizeof(char) * (word_len + 1));
+        if (!(arr[i]))
+        {
+            // Free memory in case of allocation failure
+            while (--i >= 0)
+                free(arr[i]);
+            free(arr);
+            return (NULL);
+        }
+        while (j < word_len)
+        {
+            arr[i][j] = *s;
+            s++;
+            j++;
+        }
+        arr[i][j] = '\0';
+    }
+    return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**arr;
-	int		wrdcnt;
+    char	**result;
+    int		words_count;
 
-	if (!s)
-		return (0);
-	wrdcnt = count_word(s, c);
-	arr = malloc((wrdcnt + 1) * sizeof(char *));
-	if (!arr)
-		return (0);
-	fill_arr(arr, s, c);
-	arr[wrdcnt] = 0;
-	return (arr);
+    if (!s)
+        return (NULL);
+    words_count = word_count(s, c);
+    result = (char **)malloc(sizeof(char *) * (words_count + 1));
+    if (!(result))
+        return (NULL);
+    result = fill_arr(result, s, c, words_count);
+    if (!result)
+        return (NULL); // Allocation failure handled in the helper function
+    result[words_count] = NULL;
+    return (result);
 }
-// int main() {
-//     char *a="chihab , habibi , come , to , 1337";
-//     char c =',';
-//     char **arr= ft_split(a,c);
-//     size_t i = 0;
-//     while( i <= 4)
-//     {
-//        printf("%s\n",arr[i++]);
-//     }
 
-//     return (0);
-// }
+// Add a function to free the memory allocated by ft_split
+void	free_split_result(char **result)
+{
+    int i = 0;
+    while (result[i])
+    {
+        free(result[i]);
+        i++;
+    }
+    free(result);
+}

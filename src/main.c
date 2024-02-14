@@ -6,11 +6,12 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:35:44 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/08 18:56:52 by mchihab          ###   ########.fr       */
+/*   Updated: 2024/02/12 14:24:23 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 
 // #include <crtdbg.h>
 
@@ -21,6 +22,7 @@
 // 		i++;
 // 	return (i);
 // }
+
 void	init_stack(t_stk **stack, int argc, char **argv)
 {
 	t_stk	*new;
@@ -77,8 +79,12 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	sort_stack(stack_a, stack_b);
+	printList(*stack_a);
+	printf("%d\n", ft_lstsize(*stack_a));
 	free_stack(stack_a);
 	free_stack(stack_b);
+	
+	
 	return (0);
 }
 // system("valgrind --leak-check=full --track-origins=yes ./push_swap");
