@@ -1,100 +1,81 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 12:32:04 by mchihab           #+#    #+#             */
-/*   Updated: 2024/02/11 21:31:50 by mchihab          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include <stdlib.h>
-#include <stdlib.h>
 
-int	word_count(char const *s, char c)
+static int	word_count(const char *s, char c)
 {
-    int i;
-    int count;
-
-    i = 0;
-    count = 0;
+    int count = 0;
+    int i = 0;
     while (s[i])
     {
-        if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-            count++;
-        i++;
+        if (s[i] == c && s[i])
+        {
+            i++;
+            continue;
+        }
+        count++;
+        while (s[i] != c && s[i])
+        {
+            i++;
+        }
     }
     return (count);
 }
 
-int	word_length(char const *s, char c)
+static int	word_length(const char *s, char c)
 {
-    int i;
-    int len;
-
-    i = 0;
-    len = 0;
-    while (s[i] != c && s[i] != '\0')
+    int len = 0;
+    while (*s != c && *s != '\0')
     {
-        i++;
+        s++;
         len++;
     }
     return (len);
 }
 
-char	**f(char const *s, char c, char **result, int words_count)
+static char	**fill_arr(char **arr, const char *s, char c, int words_count)
 {
-    int i;
-    int j;
-    int w_len;
-
-    while (*s == c)
-        s++;
-    i = -1;
+    int i = -1;
     while (++i < words_count)
     {
         while (*s == c)
             s++;
-        j = 0;
-        w_len = word_length(s, c);
-        result[i] = (char *)malloc(sizeof(char) * (w_len + 1));
-        if (!(result[i]))
+        int j = 0;
+        int word_len = word_length(s, c);
+        arr[i] = (char *)malloc(sizeof(char) * (word_len + 1));
+        if (!(arr[i]))
         {
             // Free memory in case of allocation failure
             while (--i >= 0)
-                free(result[i]);
-            free(result);
+                free(arr[i]);
+            free(arr);
             return (NULL);
         }
-        while (j < w_len)
+        while (j < word_len)
         {
-            result[i][j] = *s;
+            arr[i][j] = *s;
             s++;
             j++;
         }
-        result[i][j] = '\0';
+        arr[i][j] = '\0';
     }
-    return (result);
+    return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
     char	**result;
-    int		wcount;
+    int		words_count;
 
     if (!s)
         return (NULL);
-    wcount = word_count(s, c);
-    result = (char **)malloc(sizeof(char *) * (wcount + 1));
+    words_count = word_count(s, c);
+    result = (char **)malloc(sizeof(char *) * (words_count + 1));
     if (!(result))
         return (NULL);
-    result = f(s, c, result, wcount);
+    result = fill_arr(result, s, c, words_count);
     if (!result)
         return (NULL); // Allocation failure handled in the helper function
-    result[wcount] = NULL;
+    result[words_count] = NULL;
     return (result);
 }
 
@@ -109,16 +90,3 @@ void	free_split_result(char **result)
     }
     free(result);
 }
-
-// int main() {
-//     char *a="chihab , habibi , come , to , 1337";
-//     char c =',';
-//     char **arr= ft_split(a,c);
-//     size_t i = 0;
-//     while( i <= 4)
-//     {
-//        printf("%s\n",arr[i++]);
-//     }
-
-//     return (0);
-// }
